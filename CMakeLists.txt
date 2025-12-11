@@ -13,6 +13,4 @@ add_executable(ChessEngine ${SOURCES})
 
 set_property(TARGET ChessEngine PROPERTY CXX_STANDARD 20)
 
-target_include_directories(ChessEngine PRIVATE include)
-
 target_link_libraries(ChessEngine PRIVATE raylib)
