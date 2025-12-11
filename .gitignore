@@ -1,4 +1,2 @@
 *.exe
-*.dsym
-main
-match_history.txt
+.vscode
