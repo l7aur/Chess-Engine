@@ -1,34 +1,24 @@
 # Chess Engine
 
-## Table of contents
+## Preview
 
-- [Preview](#preview)
-- [Description](#description)
-- [Player Controls](#player-controls)
-- [Prerequisites](#prerequisites)
-- [How To Play](#how-to-play)
-- [Resources](#resources)
-- [Further-Developments](#further-developments)
+## Description
 
-### Preview
+## Player Controls
 
-### Description
+## Architecture
 
-Just a chess engine.
+## Prerequisites
 
-### Player Controls
+- [CMake](https://cmake.org/)
+- [Raylib](https://www.raylib.com/)
 
-### Prerequisites
+## How To Play
 
-- VisualStudio Code & extensions for C/C++
-- [Raylib libraries](https://www.raylib.com/)
+## Further Developments
 
-### How To Play
+## Resources
 
-### Resources
+The game assets are publicly available on [itch.io](https://itch.io/game-assets):
 
-The game assets and/or sprites were either provided by the course as resources or downloaded from the web - [itch.io](https://itch.io/game-assets).
-
-- [Asset 1](https://greenpixels.itch.io/pixel-art-asset-2)
-
-### Further Developments
+- sprites/textures: [here](https://greenpixels.itch.io/pixel-art-asset-2)
