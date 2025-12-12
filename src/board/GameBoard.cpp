@@ -168,7 +168,7 @@ void GameBoard::tick() {
     view.drawCheckboard();
 
     view.drawPieceSet(model.getWhitePieceSet());
-    //view.drawPieceSet(model.getBlackPieceSet());
+    view.drawPieceSet(model.getBlackPieceSet());
 }
 
 void GameBoard::processUserInput() {

@@ -1,15 +1,12 @@
 #include "Pawn.hpp"
 
-Pawn::Pawn(const std::filesystem::path& _spritePath, const Position& _position)
+Pawn::Pawn(const std::filesystem::path& spritePath, const Position& position)
     : Piece {
-        _spritePath,
-        _position,
+        spritePath,
+        position,
         {{1, 0}},
+        {{1, 1}, {1, -1}},
         {{{2, 0}, []{return false;}}}
     }
-{
-}
-
-void Pawn::tick() const
 {
 }

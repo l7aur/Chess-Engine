@@ -4,9 +4,8 @@
 
 class Pawn : public Piece {
 public:
-    Pawn(const std::filesystem::path& _spritePath, const Position& _position);
+    Pawn(const std::filesystem::path& spritePath, const Position& position);
     ~Pawn() = default;
 
-    void tick() const override;
 private:
 };

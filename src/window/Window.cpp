@@ -8,7 +8,8 @@ namespace {
     const Color BACKGROUND_BLACK = BLACK;
     const Color BACKGROUND_BOARD = BROWN;
     const Color BACKGROUND_WHITE = Color(0xcc, 0xcc, 0xcc, 0xff);
-    const unsigned int VERTICAL_OFFSET_IN_CELL = 5; //pixels
+    const unsigned int VERTICAL_OFFSET_IN_CELL = 2; // pixels
+    const unsigned int VERTICAL_LIMIT_IN_CELL = 5; // pixels
 }
 
 
@@ -75,9 +76,9 @@ void Window::drawPieceSet(const PieceSet& pieceSet) const {
                 static_cast<float>(texture.height)
             },
             {   static_cast<float>(x * rectangleWidth),
-                static_cast<float>(y * rectangleHeight),
+                static_cast<float>(y * rectangleHeight + VERTICAL_OFFSET_IN_CELL),
                 static_cast<float>(rectangleWidth),
-                static_cast<float>(rectangleHeight - VERTICAL_OFFSET_IN_CELL)
+                static_cast<float>(rectangleHeight - VERTICAL_LIMIT_IN_CELL)
             },
             {},
             0.0f,

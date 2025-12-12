@@ -29,5 +29,5 @@ void GameState::addWhitePiece(const PieceType type, const Position position) {
 }
 
 void GameState::addBlackPiece(const PieceType type, const Position position) {
-    whites.addPiece(type, position);
+    blacks.addPiece(type, position);
 }
