@@ -1,4 +1,1 @@
-*.exe
-*.dsym
-main
-match_history.txt
+build/
