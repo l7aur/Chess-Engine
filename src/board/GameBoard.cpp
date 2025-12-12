@@ -17,6 +17,7 @@ void GameBoard::init() {
 }
 
 void GameBoard::initView() {
+    SetTargetFPS(120);
     view.init(
         Config::WINDOW_TITLE,
         model.getNumberOfRows(),
