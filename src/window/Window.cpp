@@ -36,6 +36,7 @@ void Window::init(
     assert(cellWidth != 0);
     assert(cellHeight != 0);
 
+    SetTargetFPS(120);
     InitWindow(width, height, title);
 }
 
