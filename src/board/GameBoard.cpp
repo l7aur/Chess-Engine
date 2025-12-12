@@ -25,129 +25,58 @@ void GameBoard::initView() {
 }
 
 void GameBoard::initModel() {
-    initPawnsPosition(
+    initPiecesPosition(
+        PieceType::PAWN,
         PiecePosition::WhitePawnsPositions(),
-        PiecePosition::BlackPawnPositions()
+        PiecePosition::BlackPawnPositions(),
+        Config::NUMBER_OF_PAWNS_PER_SET
     );
-    initRooksPosition(
+    initPiecesPosition(
+        PieceType::ROOK,
         PiecePosition::WhiteRooksPositions(),
-        PiecePosition::BlackRooksPositions()
+        PiecePosition::BlackRooksPositions(),
+        Config::NUMBER_OF_ROOKS_PER_SET
     );
-    initKnightsPosition(
+    initPiecesPosition(
+        PieceType::KING,
         PiecePosition::WhiteKnightsPositions(),
-        PiecePosition::BlackKnightsPositions()
+        PiecePosition::BlackKnightsPositions(),
+        Config::NUMBER_OF_KNIGHTS_PER_SET
     );
-    initBishopsPosition(
+    initPiecesPosition(
+        PieceType::BISHOP,
         PiecePosition::WhiteBishopsPositions(),
-        PiecePosition::BlackBishopsPositions()
+        PiecePosition::BlackBishopsPositions(),
+        Config::NUMBER_OF_BISHOPS_PER_SET
     );
-    initQueensPosition(
+    initPiecesPosition(
+        PieceType::QUEEN,
         PiecePosition::WhiteQueensPositions(),
-        PiecePosition::BlackQueensPositions()
+        PiecePosition::BlackQueensPositions(),
+        Config::NUMBER_OF_QUEENS_PER_SET
     );
-    initKingsPosition(
+    initPiecesPosition(
+        PieceType::KING,
         PiecePosition::WhiteKingsPositions(),
-        PiecePosition::BlackKingsPositions()
+        PiecePosition::BlackKingsPositions(),
+        Config::NUMBER_OF_KINGS_PER_SET
     );
 }
 
-void GameBoard::initPawnsPosition(
-        const std::list<Position>& whitePositions,
-        const std::list<Position>& blackPositions)
+void GameBoard::initPiecesPosition(
+    const PieceType type,
+    const std::list<Position> &whitePositions,
+    const std::list<Position> &blackPositions,
+    const unsigned int numberOfPieces)
 {
     assert(whitePositions.size() == blackPositions.size());
 
     auto whiteIt = whitePositions.begin();
     auto blackIt = blackPositions.begin();
 
-    for (unsigned int i = 0; i < Config::NUMBER_OF_PAWNS_PER_SET && whiteIt != whitePositions.end(); i++) {
-        model.addWhitePiece(PAWN, *whiteIt);
-        model.addBlackPiece(PAWN, *blackIt);
-        whiteIt++;
-        blackIt++;
-    }
-}
-
-void GameBoard::initRooksPosition(
-        const std::list<Position>& whitePositions,
-        const std::list<Position>& blackPositions)
-{
-    assert(whitePositions.size() == blackPositions.size());
-
-    auto whiteIt = whitePositions.begin();
-    auto blackIt = blackPositions.begin();
-
-    for (unsigned int i = 0; i < Config::NUMBER_OF_ROOKS_PER_SET && whiteIt != whitePositions.end(); i++) {
-        model.addWhitePiece(ROOK, *whiteIt);
-        model.addBlackPiece(ROOK, *blackIt);
-        whiteIt++;
-        blackIt++;
-    }
-}
-
-void GameBoard::initKnightsPosition(
-        const std::list<Position>& whitePositions,
-        const std::list<Position>& blackPositions)
-{
-    assert(whitePositions.size() == blackPositions.size());
-
-    auto whiteIt = whitePositions.begin();
-    auto blackIt = blackPositions.begin();
-
-    for (unsigned int i = 0; i < Config::NUMBER_OF_KNIGHTS_PER_SET && whiteIt != whitePositions.end(); i++) {
-        model.addWhitePiece(KNIGHT, *whiteIt);
-        model.addBlackPiece(KNIGHT, *blackIt);
-        whiteIt++;
-        blackIt++;
-    }
-}
-
-void GameBoard::initBishopsPosition(
-        const std::list<Position>& whitePositions,
-        const std::list<Position>& blackPositions)
-{
-    assert(whitePositions.size() == blackPositions.size());
-
-    auto whiteIt = whitePositions.begin();
-    auto blackIt = blackPositions.begin();
-
-    for (unsigned int i = 0; i < Config::NUMBER_OF_BISHOPS_PER_SET  && whiteIt != whitePositions.end(); i++) {
-        model.addWhitePiece(BISHOP, *whiteIt);
-        model.addBlackPiece(BISHOP, *blackIt);
-        whiteIt++;
-        blackIt++;
-    }
-}
-
-void GameBoard::initQueensPosition(
-        const std::list<Position>& whitePositions,
-        const std::list<Position>& blackPositions)
-{
-    assert(whitePositions.size() == blackPositions.size());
-
-    auto whiteIt = whitePositions.begin();
-    auto blackIt = blackPositions.begin();
-
-    for (unsigned int i = 0; i < Config::NUMBER_OF_QUEENS_PER_SET && whiteIt != whitePositions.end(); i++) {
-        model.addWhitePiece(QUEEN, *whiteIt);
-        model.addBlackPiece(QUEEN, *blackIt);
-        whiteIt++;
-        blackIt++;
-    }
-}
-
-void GameBoard::initKingsPosition(
-    const std::list<Position>& whitePositions,
-    const std::list<Position>& blackPositions)
-{
-    assert(whitePositions.size() == blackPositions.size());
-
-    auto whiteIt = whitePositions.begin();
-    auto blackIt = blackPositions.begin();
-
-    for (unsigned int i = 0; i < Config::NUMBER_OF_KINGS_PER_SET && whiteIt != whitePositions.end(); i++) {
-        model.addWhitePiece(KING, *whiteIt);
-        model.addBlackPiece(KING, *blackIt);
+    for (unsigned int i = 0; i < numberOfPieces && whiteIt != whitePositions.end(); i++) {
+        model.addWhitePiece(type, *whiteIt);
+        model.addBlackPiece(type, *blackIt);
         whiteIt++;
         blackIt++;
     }

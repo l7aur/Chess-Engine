@@ -21,28 +21,16 @@ private:
     GameState model;
     Window view;
 
+    // Finite State Machine
     bool isWhiteTurn{ true };
     Piece* selectedPiece{ nullptr };
 
     void initView();
     void initModel();
-    void initPawnsPosition(
+    void initPiecesPosition(
+        const PieceType type,
         const std::list<Position>& whitePositions,
-        const std::list<Position>& blackPositions);
-    void initRooksPosition(
-        const std::list<Position>& whitePositions,
-        const std::list<Position>& blackPositions);
-    void initKnightsPosition(
-        const std::list<Position> &whitePositions,
-        const std::list<Position> &blackPositions);
-    void initBishopsPosition(
-        const std::list<Position> &whitePositions,
-        const std::list<Position> &blackPositions);
-    void initQueensPosition(
-        const std::list<Position>& whitePositions,
-        const std::list<Position>& blackPositions);
-    void initKingsPosition(
-        const std::list<Position>& whitePositions,
-        const std::list<Position>& blackPositions);
+        const std::list<Position>& blackPositions,
+        const unsigned int numberOfPieces);
     void processUserInput();
 };
