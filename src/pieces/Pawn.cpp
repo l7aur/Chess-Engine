@@ -1,6 +1,6 @@
 #include "Pawn.hpp"
 
-Pawn::Pawn(const std::filesystem::path& _spritePath, const Piece::Position& _position)
+Pawn::Pawn(const std::filesystem::path& _spritePath, const Position& _position)
     : Piece {
         _spritePath,
         _position,

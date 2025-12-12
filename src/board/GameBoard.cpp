@@ -1,5 +1,7 @@
 #include "GameBoard.hpp"
 #include "../static/Config.hpp"
+#include "PiecePosition.hpp"
+#include <assert.h>
 
 GameBoard::GameBoard()
  : model { Config::NUMBER_OF_ROWS, Config::NUMBER_OF_COLUMNS },
@@ -20,25 +22,129 @@ void GameBoard::initView() {
 }
 
 void GameBoard::initModel() {
-    for (unsigned int i = 0; i < Config::NUMBER_OF_PAWNS_PER_SET; i++) {
-        model.addWhitePiece(PAWN, {});
-        model.addBlackPiece(PAWN, {});
+    initPawnsPosition(
+        PiecePosition::WhitePawnsPositions(),
+        PiecePosition::BlackPawnPositions()
+    );
+    initRooksPosition(
+        PiecePosition::WhiteRooksPositions(),
+        PiecePosition::BlackRooksPositions()
+    );
+    initKingsPosition(
+        PiecePosition::WhiteKnightsPositions(),
+        PiecePosition::BlackKnightsPositions()
+    );
+    initBishopsPosition(
+        PiecePosition::WhiteBishopsPositions(),
+        PiecePosition::BlackBishopsPositions()
+    );
+    initQueensPosition(
+        PiecePosition::WhiteQueensPositions(),
+        PiecePosition::BlackQueensPositions()
+    );
+    initKingsPosition(
+        PiecePosition::WhiteKingsPositions(),
+        PiecePosition::BlackKingsPositions()
+    );
+}
+
+void GameBoard::initPawnsPosition(
+        const std::list<Position>& whitePositions,
+        const std::list<Position>& blackPositions)
+{
+    assert(whitePositions.size() == blackPositions.size());
+
+    auto whiteIt = whitePositions.begin();
+    auto blackIt = blackPositions.begin();
+
+    for (unsigned int i = 0; i < Config::NUMBER_OF_PAWNS_PER_SET && whiteIt != whitePositions.end(); i++) {
+        model.addWhitePiece(PAWN, *whiteIt);
+        model.addBlackPiece(PAWN, *blackIt);
+        whiteIt++;
+        blackIt++;
     }
-    for (unsigned int i = 0; i < Config::NUMBER_OF_ROOKS_PER_SET; i++) {
+}
+
+void GameBoard::initRooksPosition(
+        const std::list<Position>& whitePositions,
+        const std::list<Position>& blackPositions)
+{
+    assert(whitePositions.size() == blackPositions.size());
+
+    auto whiteIt = whitePositions.begin();
+    auto blackIt = blackPositions.begin();
+
+    for (unsigned int i = 0; i < Config::NUMBER_OF_ROOKS_PER_SET && whiteIt != whitePositions.end(); i++) {
         model.addWhitePiece(ROOK, {});
         model.addBlackPiece(ROOK, {});
     }
-    for (unsigned int i = 0; i < Config::NUMBER_OF_BISHOPS_PER_SET; i++) {
-        model.addWhitePiece(BISHOP, {});
-        model.addBlackPiece(BISHOP, {});
+}
+
+void GameBoard::initKnightsPosition(
+        const std::list<Position>& whitePositions,
+        const std::list<Position>& blackPositions)
+{
+    assert(whitePositions.size() == blackPositions.size());
+
+    auto whiteIt = whitePositions.begin();
+    auto blackIt = blackPositions.begin();
+
+    for (unsigned int i = 0; i < Config::NUMBER_OF_KNIGHTS_PER_SET && whiteIt != whitePositions.end(); i++) {
+        model.addWhitePiece(KNIGHT, *whiteIt);
+        model.addBlackPiece(KNIGHT, *blackIt);
+        whiteIt++;
+        blackIt++;
     }
-    for (unsigned int i = 0; i < Config::NUMBER_OF_KINGS_PER_SET; i++) {
-        model.addWhitePiece(KING, {});
-        model.addBlackPiece(KING, {});
+}
+
+void GameBoard::initBishopsPosition(
+        const std::list<Position>& whitePositions,
+        const std::list<Position>& blackPositions)
+{
+    assert(whitePositions.size() == blackPositions.size());
+
+    auto whiteIt = whitePositions.begin();
+    auto blackIt = blackPositions.begin();
+
+    for (unsigned int i = 0; i < Config::NUMBER_OF_BISHOPS_PER_SET  && whiteIt != whitePositions.end(); i++) {
+        model.addWhitePiece(BISHOP, *whiteIt);
+        model.addBlackPiece(BISHOP, *blackIt);
+        whiteIt++;
+        blackIt++;
     }
-    for (unsigned int i = 0; i < Config::NUMBER_OF_QUEENS_PER_SET; i++) {
-        model.addWhitePiece(QUEEN, {});
-        model.addBlackPiece(QUEEN, {});
+}
+
+void GameBoard::initQueensPosition(
+        const std::list<Position>& whitePositions,
+        const std::list<Position>& blackPositions)
+{
+    assert(whitePositions.size() == blackPositions.size());
+
+    auto whiteIt = whitePositions.begin();
+    auto blackIt = blackPositions.begin();
+
+    for (unsigned int i = 0; i < Config::NUMBER_OF_QUEENS_PER_SET && whiteIt != whitePositions.end(); i++) {
+        model.addWhitePiece(QUEEN, *whiteIt);
+        model.addBlackPiece(QUEEN, *blackIt);
+        whiteIt++;
+        blackIt++;
+    }
+}
+
+void GameBoard::initKingsPosition(
+    const std::list<Position>& whitePositions,
+    const std::list<Position>& blackPositions)
+{
+    assert(whitePositions.size() == blackPositions.size());
+
+    auto whiteIt = whitePositions.begin();
+    auto blackIt = blackPositions.begin();
+
+    for (unsigned int i = 0; i < Config::NUMBER_OF_KINGS_PER_SET && whiteIt != whitePositions.end(); i++) {
+        model.addWhitePiece(KING, *whiteIt);
+        model.addBlackPiece(KING, *blackIt);
+        whiteIt++;
+        blackIt++;
     }
 }
 
@@ -64,5 +170,4 @@ void GameBoard::tick() {
 }
 
 void GameBoard::processUserInput() {
-
 }

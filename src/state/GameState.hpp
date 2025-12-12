@@ -2,6 +2,7 @@
 
 #include "../pieces/PieceSet.hpp"
 #include "../pieces/PieceType.hpp"
+#include "../static/Definitions.hpp"
 
 /**
  * Game model
@@ -19,8 +20,8 @@ public:
     const PieceSet& getBlackPieceSet() const;
     const PieceSet& getWhitePieceSet() const;
 
-    void addWhitePiece(const PieceType type, const Piece::Position position);
-    void addBlackPiece(const PieceType type, const Piece::Position position);
+    void addWhitePiece(const PieceType type, const Position position);
+    void addBlackPiece(const PieceType type, const Position position);
 
 private:
     const unsigned int numberOfRows;

@@ -3,7 +3,7 @@
 enum PieceType {
     PAWN,
     ROOK,
-    HORSE,
+    KNIGHT,
     BISHOP,
     QUEEN,
     KING

@@ -13,15 +13,15 @@ Piece::Piece(
 {
 }
 
-const Piece::NormalMoves &Piece::getNormalMoves() const {
+const NormalMoves &Piece::getNormalMoves() const {
     return normalMoves;
 }
 
-const Piece::SpecialMoves &Piece::getSpecialMoves() const {
+const SpecialMoves &Piece::getSpecialMoves() const {
     return specialMoves;
 }
 
-const Piece::Position &Piece::getPosition() const {
+const Position &Piece::getPosition() const {
     return position;
 }
 

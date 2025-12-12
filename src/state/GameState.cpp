@@ -24,10 +24,10 @@ const PieceSet &GameState::getWhitePieceSet() const {
     return whites;
 }
 
-void GameState::addWhitePiece(const PieceType type, const Piece::Position position) {
+void GameState::addWhitePiece(const PieceType type, const Position position) {
     whites.addPiece(type, position);
 }
 
-void GameState::addBlackPiece(const PieceType type, const Piece::Position position) {
+void GameState::addBlackPiece(const PieceType type, const Position position) {
     whites.addPiece(type, position);
 }

@@ -15,7 +15,7 @@ const std::list<std::unique_ptr<Piece>> &PieceSet::getPieces() const {
     return pieces;
 }
 
-void PieceSet::addPiece(const PieceType type, const Piece::Position position) {
+void PieceSet::addPiece(const PieceType type, const Position position) {
     std::unique_ptr<Piece> newPiece{};
     switch (type) {
     case PAWN:
@@ -25,7 +25,7 @@ void PieceSet::addPiece(const PieceType type, const Piece::Position position) {
         break;
     case ROOK:
         break;
-    case HORSE:
+    case KNIGHT:
         break;
     case BISHOP:
         break;
