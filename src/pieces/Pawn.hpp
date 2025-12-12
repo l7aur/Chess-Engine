@@ -4,7 +4,7 @@
 
 class Pawn : public Piece {
 public:
-    explicit Pawn(const Color _color);
+    Pawn();
     ~Pawn() = default;
 
     void tick() const override;

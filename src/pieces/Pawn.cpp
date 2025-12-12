@@ -1,10 +1,9 @@
 #include "Pawn.hpp"
 
-Pawn::Pawn(const Color _color)
+Pawn::Pawn()
     : Piece {
-        _color,
         {{1, 0}},
-        {{{}, []{return false;}}}
+        {{{2, 0}, []{return false;}}}
     }
 {
 }

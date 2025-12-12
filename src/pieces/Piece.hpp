@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../board/Color.hpp"
-
 #include <list>
 #include <functional>
 
@@ -15,7 +13,6 @@ public:
     using SpecialMoves = std::list<SpecialMove>;
 
     Piece(
-        const Color _color,
         const NormalMoves _normalMoves,
         const SpecialMoves _specialMoves);
     virtual ~Piece() = default;
@@ -23,7 +20,6 @@ public:
     const NormalMoves& getNormalMoves() const;
     const SpecialMoves& getSpecialMoves() const;
     const Position& getPosition() const;
-    const Color& getColor() const;
 
     virtual void tick() const = 0;
 
@@ -31,7 +27,4 @@ protected:
     const NormalMoves normalMoves;
     const SpecialMoves specialMoves;
     const Position position;
-
-private:
-    const Color color;
 };

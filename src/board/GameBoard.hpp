@@ -1,14 +1,25 @@
 #pragma once
 
+#include "../state/GameState.hpp"
+#include "../window/Window.hpp"
+
 /**
  * Game Controller
  */
 class GameBoard {
 public:
-    GameBoard() = default;
+    GameBoard();
     ~GameBoard() = default;
 
+    void initView() const;
+    bool shouldExit() const;
+    void beginDrawing() const;
+    void endDrawing() const;
+
+    void tick();
 private:
-    static const unsigned int NUMBER_OF_ROWS{ 8 };
-    static const unsigned int NUMBER_OF_COLUMNS{ 8 };
+    GameState model;
+    Window view;
+
+    void processUserInput();
 };

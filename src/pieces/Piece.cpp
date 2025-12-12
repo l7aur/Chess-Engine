@@ -1,10 +1,9 @@
 #include "Piece.hpp"
 
 Piece::Piece(
-    const Color _color,
     const NormalMoves _normalMoves,
     const SpecialMoves _specialMoves)
-    : color { _color }, normalMoves{ _normalMoves }, specialMoves{ _specialMoves }
+    : normalMoves{ _normalMoves }, specialMoves{ _specialMoves }
 {
 }
 
@@ -18,8 +17,4 @@ const Piece::SpecialMoves &Piece::getSpecialMoves() const {
 
 const Piece::Position &Piece::getPosition() const {
     return position;
-}
-
-const Color &Piece::getColor() const {
-    return color;
 }
