@@ -7,8 +7,11 @@ GameBoard::GameBoard()
 {
 }
 
-void GameBoard::initView() const {
-    view.init(Config::WINDOW_TITLE);
+void GameBoard::init() {
+    view.init(
+        Config::WINDOW_TITLE,
+        model.getNumberOfRows(),
+        model.getNumberOfColumns());
 }
 
 bool GameBoard::shouldExit() const {
@@ -23,12 +26,11 @@ void GameBoard::endDrawing() const {
     view.endDrawing();
 }
 
-void GameBoard::tick()
-{
+void GameBoard::tick() {
     processUserInput();
-    view.drawModel(model); // model should implement an interface ideally
+    view.drawCheckboard();
 }
 
-void GameBoard::processUserInput()
-{
+void GameBoard::processUserInput() {
+
 }

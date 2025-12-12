@@ -4,7 +4,7 @@ int main()
 {
     GameBoard controller{};
 
-    controller.initView();
+    controller.init();
     while(!controller.shouldExit()) {
         controller.beginDrawing();
         controller.tick();

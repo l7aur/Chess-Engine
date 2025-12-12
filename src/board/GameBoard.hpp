@@ -11,7 +11,7 @@ public:
     GameBoard();
     ~GameBoard() = default;
 
-    void initView() const;
+    void init();
     bool shouldExit() const;
     void beginDrawing() const;
     void endDrawing() const;

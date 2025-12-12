@@ -4,20 +4,36 @@
 #include "raylib.h"
 #include <assert.h>
 
-namespace
-{
+namespace {
     Color BACKGROUND_BLACK = BLACK;
     Color BACKGROUND_BOARD = BROWN;
     Color BACKGROUND_WHITE = Color(0xcc, 0xcc, 0xcc, 0xff);
 }
 
 
-Window::Window(const unsigned int _width, const unsigned int _height)
-    : width{ _width }, height{ _height }
+Window::Window(
+    const unsigned int _width,
+    const unsigned int _height)
+    :
+    width{ _width },
+    height{ _height }
 {
 }
 
-void Window::init(const char* title) const {
+void Window::init(
+    const char* title,
+    const unsigned int numberOfRows,
+    const unsigned int numberOfColumns)
+{
+    assert(numberOfRows != 0);
+    assert(numberOfColumns != 0);
+
+    rectangleWidth =  width / numberOfColumns;
+    rectangleHeight =  height / numberOfRows;
+
+    assert(rectangleWidth != 0);
+    assert(rectangleHeight != 0);
+
     InitWindow(width, height, title);
 }
 
@@ -33,26 +49,11 @@ void Window::endDrawing() const {
     EndDrawing();
 }
 
-void Window::drawModel(const GameState& model) {
-    drawCheckboard(model.getNumberOfRows(), model.getNumberOfColumns());
-}
-
-void Window::drawCheckboard(
-    const unsigned int numberOfRows,
-    const unsigned int numberOfColumns) const
+void Window::drawCheckboard() const
 {
-    assert(numberOfColumns != 0);
-    assert(numberOfRows != 0);
-
-    const unsigned int rectangleWidth = width / numberOfColumns;
-    const unsigned int rectangleHeight = height / numberOfRows;
-
-    assert(rectangleWidth != 0);
-    assert(rectangleHeight != 0);
-
     ClearBackground(BACKGROUND_BOARD);
-    for (unsigned int i = 0; i < numberOfRows; i++)
-        for (unsigned int j = 0; j < numberOfColumns; j++)
+    for (unsigned int i = 0; i * rectangleWidth < width; i++)
+        for (unsigned int j = 0; j * rectangleHeight < height; j++)
             DrawRectangle(
                 j * rectangleWidth,
                 i * rectangleHeight,
