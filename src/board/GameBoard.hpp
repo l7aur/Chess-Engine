@@ -21,6 +21,9 @@ private:
     GameState model;
     Window view;
 
+    bool isWhiteTurn{ true };
+    Piece* selectedPiece{ nullptr };
+
     void initView();
     void initModel();
     void initPawnsPosition(

@@ -175,14 +175,22 @@ void GameBoard::tick() {
 }
 
 void GameBoard::processUserInput() {
-    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         Vector2 cursorPosition = GetMousePosition();
-        const auto& [selectedPiece, color] = model.getSelectedPiece(
-            static_cast<unsigned int>(cursorPosition.y / view.getCellHeight()),
-            static_cast<unsigned int>(cursorPosition.x / view.getCellWidth()));
+        const unsigned int row = static_cast<unsigned int>(cursorPosition.y / view.getCellHeight());
+        const unsigned int col = static_cast<unsigned int>(cursorPosition.x / view.getCellWidth());
+        selectedPiece = isWhiteTurn ? model.getSelectedWhitePiece(row, col) : model.getSelectedBlackPiece(row, col);
+    }
 
-        std::cout << (color == PieceColor::Black ? "Black " : "White ")
-            << (selectedPiece != nullptr ? selectedPiece->getSprite().id : 0)
-            << std::endl;
+    if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && selectedPiece != nullptr) {
+        Vector2 cursorPosition = GetMousePosition();
+        const unsigned int row = static_cast<unsigned int>(cursorPosition.y / view.getCellHeight());
+        const unsigned int col = static_cast<unsigned int>(cursorPosition.x / view.getCellWidth());
+        const bool isNotValidPosition = (isWhiteTurn ? model.getSelectedBlackPiece(row, col) : model.getSelectedWhitePiece(row, col)) != nullptr;
+        if (!isNotValidPosition) {
+            selectedPiece->setPosition(Position{row, col});
+            isWhiteTurn = !isWhiteTurn;
+        }
+        selectedPiece = nullptr;
     }
 }
