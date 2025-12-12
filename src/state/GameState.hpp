@@ -22,6 +22,9 @@ public:
 
     void addWhitePiece(const PieceType type, const Position position);
     void addBlackPiece(const PieceType type, const Position position);
+    std::pair<Piece*, PieceColor> getSelectedPiece(
+        const unsigned int row,
+        const unsigned int column) const;
 
 private:
     const unsigned int numberOfRows;

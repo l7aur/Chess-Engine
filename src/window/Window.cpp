@@ -9,7 +9,7 @@ namespace {
     const Color BACKGROUND_BOARD = BROWN;
     const Color BACKGROUND_WHITE = Color(0xcc, 0xcc, 0xcc, 0xff);
     const unsigned int VERTICAL_OFFSET_IN_CELL = 2; // pixels
-    const unsigned int VERTICAL_LIMIT_IN_CELL = 5; // pixels
+    const unsigned int VERTICAL_LIMIT_IN_CELL = 5;  // pixels
 }
 
 
@@ -30,11 +30,11 @@ void Window::init(
     assert(numberOfRows != 0);
     assert(numberOfColumns != 0);
 
-    rectangleWidth =  width / numberOfColumns;
-    rectangleHeight =  height / numberOfRows;
+    cellWidth =  width / numberOfColumns;
+    cellHeight =  height / numberOfRows;
 
-    assert(rectangleWidth != 0);
-    assert(rectangleHeight != 0);
+    assert(cellWidth != 0);
+    assert(cellHeight != 0);
 
     InitWindow(width, height, title);
 }
@@ -53,13 +53,13 @@ void Window::endDrawing() const {
 
 void Window::drawCheckboard() const {
     ClearBackground(BACKGROUND_BOARD);
-    for (unsigned int i = 0; i * rectangleWidth < width; i++)
-        for (unsigned int j = 0; j * rectangleHeight < height; j++)
+    for (unsigned int i = 0; i * cellWidth < width; i++)
+        for (unsigned int j = 0; j * cellHeight < height; j++)
             DrawRectangle(
-                j * rectangleWidth,
-                i * rectangleHeight,
-                rectangleWidth,
-                rectangleHeight,
+                j * cellWidth,
+                i * cellHeight,
+                cellWidth,
+                cellHeight,
                 (j + i) & 1U ? BACKGROUND_WHITE : BACKGROUND_BLACK
             );
 }
@@ -75,14 +75,22 @@ void Window::drawPieceSet(const PieceSet& pieceSet) const {
                 static_cast<float>(texture.width),
                 static_cast<float>(texture.height)
             },
-            {   static_cast<float>(x * rectangleWidth),
-                static_cast<float>(y * rectangleHeight + VERTICAL_OFFSET_IN_CELL),
-                static_cast<float>(rectangleWidth),
-                static_cast<float>(rectangleHeight - VERTICAL_LIMIT_IN_CELL)
+            {   static_cast<float>(x * cellWidth),
+                static_cast<float>(y * cellHeight + VERTICAL_OFFSET_IN_CELL),
+                static_cast<float>(cellWidth),
+                static_cast<float>(cellHeight - VERTICAL_LIMIT_IN_CELL)
             },
             {},
             0.0f,
             WHITE
         );
     }
+}
+
+unsigned int Window::getCellWidth() const {
+    return cellWidth;
+}
+
+unsigned int Window::getCellHeight() const {
+    return cellHeight;
 }

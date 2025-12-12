@@ -1,6 +1,8 @@
 #include "GameBoard.hpp"
 #include "../static/Config.hpp"
 #include "PiecePosition.hpp"
+
+#include <iostream>
 #include <assert.h>
 
 GameBoard::GameBoard()
@@ -172,4 +174,14 @@ void GameBoard::tick() {
 }
 
 void GameBoard::processUserInput() {
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        Vector2 cursorPosition = GetMousePosition();
+        const auto& [selectedPiece, color] = model.getSelectedPiece(
+            static_cast<unsigned int>(cursorPosition.y / view.getCellHeight()),
+            static_cast<unsigned int>(cursorPosition.x / view.getCellWidth()));
+
+        std::cout << (color == PieceColor::Black ? "Black " : "White ")
+            << (selectedPiece != nullptr ? selectedPiece->getSprite().id : 0)
+            << std::endl;
+    }
 }

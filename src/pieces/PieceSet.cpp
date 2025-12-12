@@ -56,3 +56,14 @@ void PieceSet::addPiece(const PieceType type, const Position position) {
     }
     pieces.push_back(std::move(newPiece));
 }
+
+Piece *PieceSet::getPieceByPosition(
+    const unsigned int row,
+    const unsigned int column) const
+{
+    auto pieceIt = std::find_if(pieces.begin(), pieces.end(),
+        [&row, &column] (const std::unique_ptr<Piece>& p) {
+            return p->getPosition().first == row && p->getPosition().second == column; });
+
+    return pieceIt != pieces.end() ? pieceIt->get() : nullptr;
+}

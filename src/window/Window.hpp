@@ -22,11 +22,13 @@ public:
     void endDrawing() const;
     void drawCheckboard() const;
     void drawPieceSet(const PieceSet& pieceSet) const;
+    unsigned int getCellWidth() const;
+    unsigned int getCellHeight() const;
 
 private:
     const unsigned int width;
     const unsigned int height;
 
-    unsigned int rectangleHeight{ 0 };
-    unsigned int rectangleWidth{ 0 };
+    unsigned int cellHeight{ 0 };
+    unsigned int cellWidth{ 0 };
 };

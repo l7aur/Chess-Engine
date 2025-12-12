@@ -31,3 +31,13 @@ void GameState::addWhitePiece(const PieceType type, const Position position) {
 void GameState::addBlackPiece(const PieceType type, const Position position) {
     blacks.addPiece(type, position);
 }
+
+std::pair<Piece *, PieceColor> GameState::getSelectedPiece(
+    const unsigned int row,
+    const unsigned int column) const
+{
+    Piece* selectedPiece = whites.getPieceByPosition(row, column);
+    if (selectedPiece != nullptr)
+        return { selectedPiece, whites.getColor() };
+    return { blacks.getPieceByPosition(row, column), blacks.getColor() };
+}
