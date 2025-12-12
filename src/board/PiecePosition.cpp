@@ -56,30 +56,30 @@ std::list<Position> PiecePosition::BlackKnightsPositions() {
 
 std::list<Position> PiecePosition::WhiteBishopsPositions() {
     return {
-        Position{0, 3},
+        Position{0, 2},
         Position{0, 5}
     };
 }
 
 std::list<Position> PiecePosition::BlackBishopsPositions() {
     return {
-        Position{7, 3},
+        Position{7, 2},
         Position{7, 5}
     };
 }
 
 std::list<Position> PiecePosition::WhiteQueensPositions() {
-    return { Position{0, 4} };
+    return { Position{0, 3} };
 }
 
 std::list<Position> PiecePosition::BlackQueensPositions() {
-    return { Position{7, 4} };
+    return { Position{7, 3} };
 }
 
 std::list<Position> PiecePosition::WhiteKingsPositions() {
-    return { Position{0, 5} };
+    return { Position{0, 4} };
 }
 
 std::list<Position> PiecePosition::BlackKingsPositions() {
-    return { Position{7, 5} };
+    return { Position{7, 4} };
 }

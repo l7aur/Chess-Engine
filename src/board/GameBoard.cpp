@@ -30,7 +30,7 @@ void GameBoard::initModel() {
         PiecePosition::WhiteRooksPositions(),
         PiecePosition::BlackRooksPositions()
     );
-    initKingsPosition(
+    initKnightsPosition(
         PiecePosition::WhiteKnightsPositions(),
         PiecePosition::BlackKnightsPositions()
     );
@@ -75,8 +75,10 @@ void GameBoard::initRooksPosition(
     auto blackIt = blackPositions.begin();
 
     for (unsigned int i = 0; i < Config::NUMBER_OF_ROOKS_PER_SET && whiteIt != whitePositions.end(); i++) {
-        model.addWhitePiece(ROOK, {});
-        model.addBlackPiece(ROOK, {});
+        model.addWhitePiece(ROOK, *whiteIt);
+        model.addBlackPiece(ROOK, *blackIt);
+        whiteIt++;
+        blackIt++;
     }
 }
 
@@ -166,7 +168,7 @@ void GameBoard::tick() {
     view.drawCheckboard();
 
     view.drawPieceSet(model.getWhitePieceSet());
-    view.drawPieceSet(model.getBlackPieceSet());
+    //view.drawPieceSet(model.getBlackPieceSet());
 }
 
 void GameBoard::processUserInput() {

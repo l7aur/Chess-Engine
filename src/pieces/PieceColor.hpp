@@ -1,3 +1,3 @@
 #pragma once
 
-enum PieceColor { WHITE, BLACK };
+enum PieceColor { White, Black };

@@ -3,7 +3,7 @@
 GameState::GameState(
     const unsigned int _numberOfRows,
     const unsigned int _numberOfColumns)
-    : blacks{ PieceColor::BLACK }, whites{ PieceColor::WHITE },
+    : blacks{ PieceColor::Black }, whites{ PieceColor::White },
     numberOfColumns{ _numberOfColumns }, numberOfRows{ _numberOfRows }
 {
 }

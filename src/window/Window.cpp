@@ -5,9 +5,10 @@
 #include <assert.h>
 
 namespace {
-    Color BACKGROUND_BLACK = BLACK;
-    Color BACKGROUND_BOARD = BROWN;
-    Color BACKGROUND_WHITE = Color(0xcc, 0xcc, 0xcc, 0xff);
+    const Color BACKGROUND_BLACK = BLACK;
+    const Color BACKGROUND_BOARD = BROWN;
+    const Color BACKGROUND_WHITE = Color(0xcc, 0xcc, 0xcc, 0xff);
+    const unsigned int VERTICAL_OFFSET_IN_CELL = 5; //pixels
 }
 
 
@@ -64,6 +65,23 @@ void Window::drawCheckboard() const {
 
 void Window::drawPieceSet(const PieceSet& pieceSet) const {
     for(const auto& piece : pieceSet.getPieces()) {
-        // DrawTexture();
+        const Texture2D& texture = piece->getSprite();
+        const auto&[y, x] = piece->getPosition();
+        DrawTexturePro(
+            texture,
+            {   0,
+                0,
+                static_cast<float>(texture.width),
+                static_cast<float>(texture.height)
+            },
+            {   static_cast<float>(x * rectangleWidth),
+                static_cast<float>(y * rectangleHeight),
+                static_cast<float>(rectangleWidth),
+                static_cast<float>(rectangleHeight - VERTICAL_OFFSET_IN_CELL)
+            },
+            {},
+            0.0f,
+            WHITE
+        );
     }
 }

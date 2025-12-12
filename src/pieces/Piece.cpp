@@ -1,16 +1,20 @@
 #include "Piece.hpp"
 
 Piece::Piece(
-    const std::filesystem::path& _spritePath,
+    const std::filesystem::path& spritePath,
     const Position& _position,
     const NormalMoves& _normalMoves,
     const SpecialMoves& _specialMoves)
     :
-    spritePath{ _spritePath },
     position{ _position },
     normalMoves{ _normalMoves },
-    specialMoves{ _specialMoves }
+    specialMoves{ _specialMoves },
+    sprite{ LoadTexture(spritePath.string().c_str()) }
 {
+}
+
+Piece::~Piece() {
+    UnloadTexture(sprite);
 }
 
 const NormalMoves &Piece::getNormalMoves() const {
@@ -25,6 +29,6 @@ const Position &Piece::getPosition() const {
     return position;
 }
 
-const std::filesystem::path &Piece::getSpritePath() const {
-    return spritePath;
+const Texture2D &Piece::getSprite() const {
+    return sprite;
 }
