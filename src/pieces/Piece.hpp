@@ -21,12 +21,14 @@ public:
     const AttackMoves& getAttackMoves() const;
     const SpecialMoves& getSpecialMoves() const;
     const Position& getPosition() const;
+    void setPosition(const Position& newPosition);
     const Texture2D& getSprite() const;
 
 protected:
     const NormalMoves normalMoves;
     const AttackMoves attackMoves;
     const SpecialMoves specialMoves;
-    const Position position;
     const Texture2D sprite;
+
+    Position position;
 };

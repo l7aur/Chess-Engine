@@ -35,6 +35,10 @@ const Position &Piece::getPosition() const {
     return position;
 }
 
+void Piece::setPosition(const Position &newPosition) {
+    position = newPosition;
+}
+
 const Texture2D &Piece::getSprite() const {
     return sprite;
 }
