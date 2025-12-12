@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../pieces/PieceSet.hpp"
+#include "../pieces/PieceType.hpp"
 
 /**
  * Game model
@@ -14,6 +15,12 @@ public:
 
     unsigned int getNumberOfRows() const;
     unsigned int getNumberOfColumns() const;
+
+    const PieceSet& getBlackPieceSet() const;
+    const PieceSet& getWhitePieceSet() const;
+
+    void addWhitePiece(const PieceType type, const Piece::Position position);
+    void addBlackPiece(const PieceType type, const Piece::Position position);
 
 private:
     const unsigned int numberOfRows;

@@ -1,6 +1,7 @@
 #pragma once
 
 class GameState;
+class PieceSet;
 
 /**
  * Game View
@@ -20,6 +21,7 @@ public:
     void beginDrawing() const;
     void endDrawing() const;
     void drawCheckboard() const;
+    void drawPieceSet(const PieceSet& pieceSet) const;
 
 private:
     const unsigned int width;

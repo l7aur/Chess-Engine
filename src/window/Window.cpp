@@ -49,8 +49,7 @@ void Window::endDrawing() const {
     EndDrawing();
 }
 
-void Window::drawCheckboard() const
-{
+void Window::drawCheckboard() const {
     ClearBackground(BACKGROUND_BOARD);
     for (unsigned int i = 0; i * rectangleWidth < width; i++)
         for (unsigned int j = 0; j * rectangleHeight < height; j++)
@@ -61,4 +60,10 @@ void Window::drawCheckboard() const
                 rectangleHeight,
                 (j + i) & 1U ? BACKGROUND_WHITE : BACKGROUND_BLACK
             );
+}
+
+void Window::drawPieceSet(const PieceSet& pieceSet) const {
+    for(const auto& piece : pieceSet.getPieces()) {
+        // DrawTexture();
+    }
 }

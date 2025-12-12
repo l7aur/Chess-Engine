@@ -21,5 +21,7 @@ private:
     GameState model;
     Window view;
 
+    void initView();
+    void initModel();
     void processUserInput();
 };

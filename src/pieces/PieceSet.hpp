@@ -2,13 +2,15 @@
 
 #include "Piece.hpp"
 #include "PieceColor.hpp"
+#include "PieceType.hpp"
 
 #include <list>
+#include <memory>
 
 class PieceSet {
 public:
     PieceSet(const PieceColor _color);
-    ~PieceSet();
+    ~PieceSet() = default;
 
     PieceSet(const PieceSet&) = delete;
     PieceSet(PieceSet&&) = delete;
@@ -16,8 +18,10 @@ public:
     void operator=(PieceSet&&) = delete;
 
     const PieceColor& getColor() const;
+    const std::list<std::unique_ptr<Piece>>& getPieces() const;
+    void addPiece(const PieceType type, const Piece::Position position);
 
 private:
-    std::list<Piece*> pieces;
+    std::list<std::unique_ptr<Piece>> pieces;
     const PieceColor color;
 };
