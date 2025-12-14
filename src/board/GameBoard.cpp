@@ -128,7 +128,7 @@ std::list<Position> GameBoard::computeNormalMoves() const {
     const auto& currentPosition = selectedPiece->getPosition();
     std::list<Position> toHighlight{};
 
-    for(const auto& m : moves) {
+    for (const auto& m : moves) {
         const auto boardMove = m * currentPieceSet.getColor();
         toHighlight.push_back(boardMove + currentPosition);
     }
@@ -142,7 +142,7 @@ std::list<Position> GameBoard::computeAttackMoves() const {
     const auto& currentPosition = selectedPiece->getPosition();
     std::list<Position> toHighlight{};
 
-    for(const auto& m : moves) {
+    for (const auto& m : moves) {
         const auto boardMove = m * currentPieceSet.getColor();
         toHighlight.push_back(boardMove + currentPosition);
     }
@@ -156,10 +156,11 @@ std::list<Position> GameBoard::computeSpecialMoves() const {
     const auto& currentPosition = selectedPiece->getPosition();
     std::list<Position> toHighlight{};
 
-    // for(const auto& m : moves) {
-    //     const auto boardMove = m * currentPieceSet.getColor();
-    //     toHighlight.push_back(boardMove + currentPosition);
-    // }
+    for (const auto& m : moves)
+        if (m.second()) {
+            const auto boardMove = m.first * currentPieceSet.getColor();
+            toHighlight.push_back(boardMove + currentPosition);
+        }
     return toHighlight;
 }
 
