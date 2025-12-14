@@ -33,4 +33,8 @@ private:
         const std::list<Position>& blackPositions,
         const unsigned int numberOfPieces);
     void processUserInput();
+    bool isValidBoardPosition(const Position& position) const;
+    void processUserLeftClick(const Position &position);
+    void processUserLeftClickRelease(const Position &position, const bool isValidPosition);
+    void processUserLeftClickPressed(const Position &position, const bool isValidPosition);
 };

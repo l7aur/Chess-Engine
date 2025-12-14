@@ -22,12 +22,8 @@ public:
 
     void addWhitePiece(const PieceType type, const Position position);
     void addBlackPiece(const PieceType type, const Position position);
-    Piece* getSelectedWhitePiece(
-        const unsigned int row,
-        const unsigned int column) const;
-    Piece* getSelectedBlackPiece(
-        const unsigned int row,
-        const unsigned int column) const;
+    Piece* getSelectedWhitePiece(const Position& position) const;
+    Piece* getSelectedBlackPiece(const Position& position) const;
 
 private:
     const unsigned int numberOfRows;

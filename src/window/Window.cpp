@@ -68,7 +68,7 @@ void Window::drawCheckboard() const {
 void Window::drawPieceSet(const PieceSet& pieceSet) const {
     for(const auto& piece : pieceSet.getPieces()) {
         const Texture2D& texture = piece->getSprite();
-        const auto&[y, x] = piece->getPosition();
+        const auto&[y, x] = piece->getDrawPosition();
         DrawTexturePro(
             texture,
             {   0,

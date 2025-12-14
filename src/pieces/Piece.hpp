@@ -21,7 +21,10 @@ public:
     const AttackMoves& getAttackMoves() const;
     const SpecialMoves& getSpecialMoves() const;
     const Position& getPosition() const;
-    void setPosition(const Position& newPosition);
+    void commitPosition(const Position& newPosition);
+    const Position& getDrawPosition() const;
+    void setDrawPosition(const Position& newPosition);
+    void resetDrawPosition();
     const Texture2D& getSprite() const;
 
 protected:
@@ -31,4 +34,5 @@ protected:
     const Texture2D sprite;
 
     Position position;
+    Position drawPosition;
 };

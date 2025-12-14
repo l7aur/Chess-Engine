@@ -32,16 +32,12 @@ void GameState::addBlackPiece(const PieceType type, const Position position) {
     blacks.addPiece(type, position);
 }
 
-Piece* GameState::getSelectedWhitePiece(
-    const unsigned int row,
-    const unsigned int column) const
+Piece* GameState::getSelectedWhitePiece(const Position& position) const
 {
-    return whites.getPieceByPosition(row, column);
+    return whites.getPieceByPosition(position);
 }
 
-Piece* GameState::getSelectedBlackPiece(
-    const unsigned int row,
-    const unsigned int column) const
+Piece* GameState::getSelectedBlackPiece(const Position& position) const
 {
-    return blacks.getPieceByPosition(row, column);
+    return blacks.getPieceByPosition(position);
 }

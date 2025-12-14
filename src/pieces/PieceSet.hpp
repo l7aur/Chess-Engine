@@ -20,9 +20,7 @@ public:
     const PieceColor& getColor() const;
     const std::list<std::unique_ptr<Piece>>& getPieces() const;
     void addPiece(const PieceType type, const Position position);
-    Piece* getPieceByPosition(
-        const unsigned int row,
-        const unsigned int column) const;
+    Piece* getPieceByPosition(const Position& position) const;
 private:
     std::list<std::unique_ptr<Piece>> pieces;
     const PieceColor color;

@@ -8,6 +8,7 @@ Piece::Piece(
     const SpecialMoves& _specialMoves)
     :
     position{ _position },
+    drawPosition{ _position },
     normalMoves{ _normalMoves },
     attackMoves{ _attackMoves },
     specialMoves{ _specialMoves },
@@ -35,8 +36,20 @@ const Position &Piece::getPosition() const {
     return position;
 }
 
-void Piece::setPosition(const Position &newPosition) {
-    position = newPosition;
+const Position &Piece::getDrawPosition() const {
+    return drawPosition;
+}
+
+void Piece::setDrawPosition(const Position &newPosition) {
+    drawPosition = newPosition;
+}
+
+void Piece::resetDrawPosition() {
+    drawPosition = position;
+}
+
+void Piece::commitPosition(const Position &newPosition) {
+    position = drawPosition = newPosition;
 }
 
 const Texture2D &Piece::getSprite() const {

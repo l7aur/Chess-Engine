@@ -37,7 +37,7 @@ void GameBoard::initModel() {
         Config::NUMBER_OF_ROOKS_PER_SET
     );
     initPiecesPosition(
-        PieceType::KING,
+        PieceType::KNIGHT,
         PiecePosition::WhiteKnightsPositions(),
         PiecePosition::BlackKnightsPositions(),
         Config::NUMBER_OF_KNIGHTS_PER_SET
@@ -97,27 +97,56 @@ void GameBoard::tick() {
     processUserInput();
 
     view.drawCheckboard();
-
     view.drawPieceSet(model.getWhitePieceSet());
     view.drawPieceSet(model.getBlackPieceSet());
 }
 
 void GameBoard::processUserInput() {
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        Vector2 cursorPosition = GetMousePosition();
-        const unsigned int row = static_cast<unsigned int>(cursorPosition.y / view.getCellHeight());
-        const unsigned int col = static_cast<unsigned int>(cursorPosition.x / view.getCellWidth());
-        selectedPiece = isWhiteTurn ? model.getSelectedWhitePiece(row, col) : model.getSelectedBlackPiece(row, col);
-    }
+    Vector2 cursorPosition = GetMousePosition();
+    const Position position {
+        static_cast<unsigned int>(cursorPosition.y / view.getCellHeight()),
+        static_cast<unsigned int>(cursorPosition.x / view.getCellWidth())
+    };
+    const bool isValidPosition = isValidBoardPosition(position);
 
+    processUserLeftClick(position);
+    processUserLeftClickPressed(position, isValidPosition);
+    processUserLeftClickRelease(position, isValidPosition);
+}
+
+bool GameBoard::isValidBoardPosition(const Position& position) const {
+    Piece* pieceAtPosition = model.getSelectedWhitePiece(position);
+    if (pieceAtPosition != nullptr)
+        return false;
+
+    pieceAtPosition = model.getSelectedBlackPiece(position);
+    if (pieceAtPosition == nullptr)
+        return true;
+    return false;
+}
+
+void GameBoard::processUserLeftClick(const Position &position) {
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        selectedPiece = isWhiteTurn ? model.getSelectedWhitePiece(position) : model.getSelectedBlackPiece(position);
+}
+
+void GameBoard::processUserLeftClickPressed(const Position &position, const bool isValidPostion) {
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && selectedPiece != nullptr) {
+        if (isValidPostion)
+            selectedPiece->setDrawPosition(position);
+        else
+            selectedPiece->resetDrawPosition();
+    }
+}
+
+void GameBoard::processUserLeftClickRelease(const Position &position, const bool isValidPosition) {
     if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && selectedPiece != nullptr) {
-        Vector2 cursorPosition = GetMousePosition();
-        const unsigned int row = static_cast<unsigned int>(cursorPosition.y / view.getCellHeight());
-        const unsigned int col = static_cast<unsigned int>(cursorPosition.x / view.getCellWidth());
-        const bool isNotValidPosition = (isWhiteTurn ? model.getSelectedBlackPiece(row, col) : model.getSelectedWhitePiece(row, col)) != nullptr;
-        if (!isNotValidPosition) {
-            selectedPiece->setPosition(Position{row, col});
+        if (isValidPosition) {
+            selectedPiece->commitPosition(position);
             isWhiteTurn = !isWhiteTurn;
+        }
+        else {
+            selectedPiece->resetDrawPosition();
         }
         selectedPiece = nullptr;
     }
