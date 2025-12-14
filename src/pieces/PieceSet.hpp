@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Piece.hpp"
-#include "PieceColor.hpp"
+#include "../static/PieceColor.hpp"
 #include "PieceType.hpp"
 
 #include <list>

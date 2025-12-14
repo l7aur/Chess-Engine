@@ -1,5 +1,7 @@
 #pragma once
 
+#include "raylib.h"
+
 class Config {
 private:
     inline static const unsigned int SPRITE_WIDTH  = 32; // pixels
@@ -19,4 +21,8 @@ public:
     inline static const unsigned int NUMBER_OF_ROOKS_PER_SET = 2;
     inline static const unsigned int NUMBER_OF_QUEENS_PER_SET = 1;
     inline static const unsigned int NUMBER_OF_KINGS_PER_SET = 1;
+
+    inline static const Color HIGHLIGHT_NORMAL = { 0x00, 0xff, 0x00, 0x60 };
+    inline static const Color HIGHLIGHT_ATTACK = { 0xff, 0x00, 0x00, 0x60 };
+    inline static const Color HIGHLIGHT_SPECIAL = { 0xff, 0xff, 0x00, 0x60 };
 };

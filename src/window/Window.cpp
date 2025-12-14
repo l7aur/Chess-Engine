@@ -46,6 +46,7 @@ bool Window::isClosed() const {
 
 void Window::beginDrawing() const {
     BeginDrawing();
+    ClearBackground(BACKGROUND_BOARD);
 }
 
 void Window::endDrawing() const {
@@ -53,7 +54,6 @@ void Window::endDrawing() const {
 }
 
 void Window::drawCheckboard() const {
-    ClearBackground(BACKGROUND_BOARD);
     for (unsigned int i = 0; i * cellWidth < width; i++)
         for (unsigned int j = 0; j * cellHeight < height; j++)
             DrawRectangle(
@@ -94,4 +94,16 @@ unsigned int Window::getCellWidth() const {
 
 unsigned int Window::getCellHeight() const {
     return cellHeight;
+}
+
+void Window::highlightBoardPositions(const std::list<Position>& positions, const Color& color) const {
+    for (const auto& pos : positions) {
+        DrawRectangle(
+            pos.second * static_cast<int>(cellWidth),
+            pos.first * static_cast<int>(cellHeight),
+            static_cast<int>(cellWidth),
+            static_cast<int>(cellHeight),
+            color
+        );
+    }
 }

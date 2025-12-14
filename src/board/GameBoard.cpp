@@ -94,11 +94,9 @@ void GameBoard::endDrawing() const {
 }
 
 void GameBoard::tick() {
+    processSceneDrawing();
     processUserInput();
-
-    view.drawCheckboard();
-    view.drawPieceSet(model.getWhitePieceSet());
-    view.drawPieceSet(model.getBlackPieceSet());
+    processHighlights();
 }
 
 void GameBoard::processUserInput() {
@@ -112,6 +110,63 @@ void GameBoard::processUserInput() {
     processUserLeftClick(position);
     processUserLeftClickPressed(position, isValidPosition);
     processUserLeftClickRelease(position, isValidPosition);
+}
+
+void GameBoard::processHighlights() const {
+    if (selectedPiece == nullptr)
+        return;
+
+    view.highlightBoardPositions(computeNormalMoves(), Config::HIGHLIGHT_NORMAL);
+    view.highlightBoardPositions(computeAttackMoves(), Config::HIGHLIGHT_ATTACK);
+    view.highlightBoardPositions(computeSpecialMoves(), Config::HIGHLIGHT_SPECIAL);
+}
+
+std::list<Position> GameBoard::computeNormalMoves() const {
+    const auto& moves = selectedPiece->getNormalMoves();
+    const auto& currentPieceSet = isWhiteTurn ? model.getWhitePieceSet() : model.getBlackPieceSet();
+    const auto& otherPieceSet = isWhiteTurn ? model.getBlackPieceSet() : model.getWhitePieceSet();
+    const auto& currentPosition = selectedPiece->getPosition();
+    std::list<Position> toHighlight{};
+
+    for(const auto& m : moves) {
+        const auto boardMove = m * currentPieceSet.getColor();
+        toHighlight.push_back(boardMove + currentPosition);
+    }
+    return toHighlight;
+}
+
+std::list<Position> GameBoard::computeAttackMoves() const {
+    const auto& moves = selectedPiece->getAttackMoves();
+    const auto& currentPieceSet = isWhiteTurn ? model.getWhitePieceSet() : model.getBlackPieceSet();
+    const auto& otherPieceSet = isWhiteTurn ? model.getBlackPieceSet() : model.getWhitePieceSet();
+    const auto& currentPosition = selectedPiece->getPosition();
+    std::list<Position> toHighlight{};
+
+    for(const auto& m : moves) {
+        const auto boardMove = m * currentPieceSet.getColor();
+        toHighlight.push_back(boardMove + currentPosition);
+    }
+    return toHighlight;
+}
+
+std::list<Position> GameBoard::computeSpecialMoves() const {
+    const auto& moves = selectedPiece->getSpecialMoves();
+    const auto& currentPieceSet = isWhiteTurn ? model.getWhitePieceSet() : model.getBlackPieceSet();
+    const auto& otherPieceSet = isWhiteTurn ? model.getBlackPieceSet() : model.getWhitePieceSet();
+    const auto& currentPosition = selectedPiece->getPosition();
+    std::list<Position> toHighlight{};
+
+    // for(const auto& m : moves) {
+    //     const auto boardMove = m * currentPieceSet.getColor();
+    //     toHighlight.push_back(boardMove + currentPosition);
+    // }
+    return toHighlight;
+}
+
+void GameBoard::processSceneDrawing() {
+    view.drawCheckboard();
+    view.drawPieceSet(model.getWhitePieceSet());
+    view.drawPieceSet(model.getBlackPieceSet());
 }
 
 bool GameBoard::isValidBoardPosition(const Position& position) const {

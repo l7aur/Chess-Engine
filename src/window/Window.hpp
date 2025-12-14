@@ -1,7 +1,10 @@
 #pragma once
 
+#include "../static/Definitions.hpp"
+
 class GameState;
 class PieceSet;
+struct Color;
 
 /**
  * Game View
@@ -24,6 +27,7 @@ public:
     void drawPieceSet(const PieceSet& pieceSet) const;
     unsigned int getCellWidth() const;
     unsigned int getCellHeight() const;
+    void highlightBoardPositions(const std::list<Position>& positions, const Color& color) const;
 
 private:
     const unsigned int width;
