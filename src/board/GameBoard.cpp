@@ -116,49 +116,64 @@ void GameBoard::processHighlights() const {
     if (selectedPiece == nullptr)
         return;
 
-    view.highlightBoardPositions(computeNormalMoves(), Config::HIGHLIGHT_NORMAL);
-    view.highlightBoardPositions(computeAttackMoves(), Config::HIGHLIGHT_ATTACK);
-    view.highlightBoardPositions(computeSpecialMoves(), Config::HIGHLIGHT_SPECIAL);
+    const auto& current = isWhiteTurn ? model.getWhitePieceSet() : model.getBlackPieceSet();
+    const auto& other = isWhiteTurn ? model.getBlackPieceSet() : model.getWhitePieceSet();
+
+    view.highlightBoardPositions(computeNormalMoves(current, other), Config::HIGHLIGHT_NORMAL);
+    view.highlightBoardPositions(computeAttackMoves(current, other), Config::HIGHLIGHT_ATTACK);
+    view.highlightBoardPositions(computeSpecialMoves(current, other), Config::HIGHLIGHT_SPECIAL);
 }
 
-std::list<Position> GameBoard::computeNormalMoves() const {
+std::list<Position> GameBoard::computeNormalMoves(
+    const PieceSet& current,
+    const PieceSet& other
+) const
+{
+    assert(selectedPiece != nullptr);
+
+    std::list<Position> toHighlight{};
     const auto& moves = selectedPiece->getNormalMoves();
-    const auto& currentPieceSet = isWhiteTurn ? model.getWhitePieceSet() : model.getBlackPieceSet();
-    const auto& otherPieceSet = isWhiteTurn ? model.getBlackPieceSet() : model.getWhitePieceSet();
     const auto& currentPosition = selectedPiece->getPosition();
-    std::list<Position> toHighlight{};
 
     for (const auto& m : moves) {
-        const auto boardMove = m * currentPieceSet.getColor();
+        const auto boardMove = m * current.getColor();
         toHighlight.push_back(boardMove + currentPosition);
     }
     return toHighlight;
 }
 
-std::list<Position> GameBoard::computeAttackMoves() const {
+std::list<Position> GameBoard::computeAttackMoves(
+    const PieceSet& current,
+    const PieceSet& other
+) const
+{
+    assert(selectedPiece != nullptr);
+
+    std::list<Position> toHighlight{};
     const auto& moves = selectedPiece->getAttackMoves();
-    const auto& currentPieceSet = isWhiteTurn ? model.getWhitePieceSet() : model.getBlackPieceSet();
-    const auto& otherPieceSet = isWhiteTurn ? model.getBlackPieceSet() : model.getWhitePieceSet();
     const auto& currentPosition = selectedPiece->getPosition();
-    std::list<Position> toHighlight{};
 
     for (const auto& m : moves) {
-        const auto boardMove = m * currentPieceSet.getColor();
+        const auto boardMove = m * current.getColor();
         toHighlight.push_back(boardMove + currentPosition);
     }
     return toHighlight;
 }
 
-std::list<Position> GameBoard::computeSpecialMoves() const {
-    const auto& moves = selectedPiece->getSpecialMoves();
-    const auto& currentPieceSet = isWhiteTurn ? model.getWhitePieceSet() : model.getBlackPieceSet();
-    const auto& otherPieceSet = isWhiteTurn ? model.getBlackPieceSet() : model.getWhitePieceSet();
-    const auto& currentPosition = selectedPiece->getPosition();
+std::list<Position> GameBoard::computeSpecialMoves(
+    const PieceSet& current,
+    const PieceSet& other
+) const
+{
+    assert(selectedPiece != nullptr);
+
     std::list<Position> toHighlight{};
+    const auto& moves = selectedPiece->getSpecialMoves();
+    const auto& currentPosition = selectedPiece->getPosition();
 
     for (const auto& m : moves)
         if (m.second()) {
-            const auto boardMove = m.first * currentPieceSet.getColor();
+            const auto boardMove = m.first * current.getColor();
             toHighlight.push_back(boardMove + currentPosition);
         }
     return toHighlight;

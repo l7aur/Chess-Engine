@@ -34,9 +34,18 @@ private:
         const unsigned int numberOfPieces);
     void processUserInput();
     void processHighlights() const;
-    std::list<Position> computeNormalMoves() const;
-    std::list<Position> computeAttackMoves() const;
-    std::list<Position> computeSpecialMoves() const;
+    std::list<Position> computeNormalMoves(
+        const PieceSet& current,
+        const PieceSet& other
+    ) const;
+    std::list<Position> computeAttackMoves(
+        const PieceSet& current,
+        const PieceSet& other
+    ) const;
+    std::list<Position> computeSpecialMoves(
+        const PieceSet& current,
+        const PieceSet& other
+    ) const;
     void processSceneDrawing();
     bool isValidBoardPosition(const Position &position) const;
     void processUserLeftClick(const Position &position);
