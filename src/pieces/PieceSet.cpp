@@ -1,5 +1,5 @@
 #include "PieceSet.hpp"
-#include "Resource.hpp"
+#include "PieceConfig.hpp"
 #include "Pawn.hpp"
 #include "Rook.hpp"
 #include "Knight.hpp"
@@ -20,50 +20,39 @@ const std::list<std::unique_ptr<Piece>> &PieceSet::getPieces() const {
     return pieces;
 }
 
-void PieceSet::addPiece(const PieceType type, const Position position) {
+void PieceSet::addPiece(const PieceConfig::Type type, const Position position) {
+    using PieceConfig::Type::PAWN, PieceConfig::Type::ROOK, PieceConfig::Type::KNIGHT;
+    using PieceConfig::Type::BISHOP, PieceConfig::Type::QUEEN, PieceConfig::Type::KING;
+
     std::unique_ptr<Piece> newPiece{};
     switch (type) {
     case ROOK:
-        newPiece.reset(new Rook(
-            color == PieceColor::Black ? Resource::BLACK_PATH_TO_ROOK : Resource::WHITE_PATH_TO_ROOK,
-            position));
+        newPiece.reset(new Rook(PieceConfig::PATH_TO_SPRITE(type, color), position));
         break;
     case KNIGHT:
-        newPiece.reset(new Knight(
-            color == PieceColor::Black ? Resource::BLACK_PATH_TO_KNIGHT : Resource::WHITE_PATH_TO_KNIGHT,
-            position));
+        newPiece.reset(new Knight(PieceConfig::PATH_TO_SPRITE(type, color), position));
         break;
     case BISHOP:
-        newPiece.reset(new Bishop(
-            color == PieceColor::Black ? Resource::BLACK_PATH_TO_BISHOP : Resource::WHITE_PATH_TO_BISHOP,
-            position));
+        newPiece.reset(new Bishop(PieceConfig::PATH_TO_SPRITE(type, color), position));
         break;
     case QUEEN:
-        newPiece.reset(new Queen(
-            color == PieceColor::Black ? Resource::BLACK_PATH_TO_QUEEN : Resource::WHITE_PATH_TO_QUEEN,
-            position));
+        newPiece.reset(new Queen(PieceConfig::PATH_TO_SPRITE(type, color), position));
         break;
     case KING:
-        newPiece.reset(new King(
-            color == PieceColor::Black ? Resource::BLACK_PATH_TO_KING : Resource::WHITE_PATH_TO_KING,
-            position));
+        newPiece.reset(new King(PieceConfig::PATH_TO_SPRITE(type, color), position));
         break;
     default:
-        newPiece.reset(new Pawn(
-            color == PieceColor::Black ? Resource::BLACK_PATH_TO_PAWN : Resource::WHITE_PATH_TO_PAWN,
-            position));
+        newPiece.reset(new Pawn(PieceConfig::PATH_TO_SPRITE(type, color), position));
         break;
     }
     pieces.push_back(std::move(newPiece));
 }
 
-Piece *PieceSet::getPieceByPosition(
-    const unsigned int row,
-    const unsigned int column) const
+Piece *PieceSet::getPieceByPosition(const Position& position) const
 {
     auto pieceIt = std::find_if(pieces.begin(), pieces.end(),
-        [&row, &column] (const std::unique_ptr<Piece>& p) {
-            return p->getPosition().first == row && p->getPosition().second == column; });
+        [&position] (const std::unique_ptr<Piece>& p) {
+            return p->getPosition().first == position.first && p->getPosition().second == position.second; });
 
     return pieceIt != pieces.end() ? pieceIt->get() : nullptr;
 }

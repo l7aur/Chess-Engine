@@ -1,6 +1,8 @@
 #pragma once
 
-class Config {
+#include "raylib.h"
+
+class WindowConfig {
 private:
     inline static const unsigned int SPRITE_WIDTH  = 32; // pixels
     inline static const unsigned int SPRITE_HEIGHT = 32; // pixels
@@ -13,10 +15,7 @@ public:
 
     inline static const char* WINDOW_TITLE = "L7aur Chess Engine";
 
-    inline static const unsigned int NUMBER_OF_PAWNS_PER_SET = 8;
-    inline static const unsigned int NUMBER_OF_KNIGHTS_PER_SET = 2;
-    inline static const unsigned int NUMBER_OF_BISHOPS_PER_SET = 2;
-    inline static const unsigned int NUMBER_OF_ROOKS_PER_SET = 2;
-    inline static const unsigned int NUMBER_OF_QUEENS_PER_SET = 1;
-    inline static const unsigned int NUMBER_OF_KINGS_PER_SET = 1;
+    inline static const Color HIGHLIGHT_NORMAL = { 0x00, 0xff, 0x00, 0x60 };
+    inline static const Color HIGHLIGHT_ATTACK = { 0xff, 0x00, 0x00, 0x60 };
+    inline static const Color HIGHLIGHT_SPECIAL = { 0xff, 0xff, 0x00, 0x60 };
 };

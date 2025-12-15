@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.10)
 
 project(ChessEngine)
 
-# Let CMake find Raylib via vcpkg
 find_package(raylib CONFIG REQUIRED)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS

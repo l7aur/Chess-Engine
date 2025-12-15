@@ -28,9 +28,26 @@ private:
     void initView();
     void initModel();
     void initPiecesPosition(
-        const PieceType type,
+        const PieceConfig::Type type,
         const std::list<Position>& whitePositions,
         const std::list<Position>& blackPositions,
         const unsigned int numberOfPieces);
     void processUserInput();
+    void computeMoves();
+    std::list<Position> computeNormalMoves(
+        const PieceSet &current,
+        const PieceSet &other) const;
+    std::list<Position> computeAttackMoves(
+        const PieceSet& current,
+        const PieceSet& other
+    ) const;
+    std::list<Position> computeSpecialMoves(
+        const PieceSet& current,
+        const PieceSet& other
+    ) const;
+    void processSceneDrawing();
+    bool isValidBoardPosition(const Position &position) const;
+    void processUserLeftClick(const Position &position);
+    void processUserLeftClickRelease(const Position &position, const bool isValidPosition);
+    void processUserLeftClickPressed(const Position &position, const bool isValidPosition);
 };
