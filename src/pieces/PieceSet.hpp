@@ -2,7 +2,7 @@
 
 #include "Piece.hpp"
 #include "../static/PieceColor.hpp"
-#include "PieceType.hpp"
+#include "PieceConfig.hpp"
 
 #include <list>
 #include <memory>
@@ -19,7 +19,7 @@ public:
 
     const PieceColor& getColor() const;
     const std::list<std::unique_ptr<Piece>>& getPieces() const;
-    void addPiece(const PieceType type, const Position position);
+    void addPiece(const PieceConfig::Type type, const Position position);
     Piece* getPieceByPosition(const Position& position) const;
 private:
     std::list<std::unique_ptr<Piece>> pieces;

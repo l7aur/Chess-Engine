@@ -1,13 +1,13 @@
 #include "GameBoard.hpp"
-#include "../static/Config.hpp"
-#include "PiecePosition.hpp"
+#include "../window/WindowConfig.hpp"
+#include "../pieces/PieceConfig.hpp"
 
 #include <iostream>
 #include <assert.h>
 
 GameBoard::GameBoard()
- : model { Config::NUMBER_OF_ROWS, Config::NUMBER_OF_COLUMNS },
- view{ Config::DISPLAY_WINDOW_WIDTH, Config::DISPLAY_WINDOW_HEIGHT }
+ : model { WindowConfig::NUMBER_OF_ROWS, WindowConfig::NUMBER_OF_COLUMNS },
+ view{ WindowConfig::DISPLAY_WINDOW_WIDTH, WindowConfig::DISPLAY_WINDOW_HEIGHT }
 {
 }
 
@@ -18,52 +18,28 @@ void GameBoard::init() {
 
 void GameBoard::initView() {
     view.init(
-        Config::WINDOW_TITLE,
+        WindowConfig::WINDOW_TITLE,
         model.getNumberOfRows(),
         model.getNumberOfColumns());
 }
 
 void GameBoard::initModel() {
-    initPiecesPosition(
-        PieceType::PAWN,
-        PiecePosition::WhitePawnsPositions(),
-        PiecePosition::BlackPawnPositions(),
-        Config::NUMBER_OF_PAWNS_PER_SET
-    );
-    initPiecesPosition(
-        PieceType::ROOK,
-        PiecePosition::WhiteRooksPositions(),
-        PiecePosition::BlackRooksPositions(),
-        Config::NUMBER_OF_ROOKS_PER_SET
-    );
-    initPiecesPosition(
-        PieceType::KNIGHT,
-        PiecePosition::WhiteKnightsPositions(),
-        PiecePosition::BlackKnightsPositions(),
-        Config::NUMBER_OF_KNIGHTS_PER_SET
-    );
-    initPiecesPosition(
-        PieceType::BISHOP,
-        PiecePosition::WhiteBishopsPositions(),
-        PiecePosition::BlackBishopsPositions(),
-        Config::NUMBER_OF_BISHOPS_PER_SET
-    );
-    initPiecesPosition(
-        PieceType::QUEEN,
-        PiecePosition::WhiteQueensPositions(),
-        PiecePosition::BlackQueensPositions(),
-        Config::NUMBER_OF_QUEENS_PER_SET
-    );
-    initPiecesPosition(
-        PieceType::KING,
-        PiecePosition::WhiteKingsPositions(),
-        PiecePosition::BlackKingsPositions(),
-        Config::NUMBER_OF_KINGS_PER_SET
-    );
+    for (
+        PieceConfig::Type it = static_cast<PieceConfig::Type>(static_cast<int>(PieceConfig::Type::GUARD_BEGIN) + 1);
+        it != PieceConfig::Type::GUARD_END;
+        it = static_cast<PieceConfig::Type>(static_cast<int>(it) + 1))
+    {
+        initPiecesPosition(
+            it,
+            PieceConfig::POSITIONS(it, PieceColor::White),
+            PieceConfig::POSITIONS(it, PieceColor::Black),
+            PieceConfig::NUMBER_OF_PIECES_PER_SET(it)
+        );
+    }
 }
 
 void GameBoard::initPiecesPosition(
-    const PieceType type,
+    const PieceConfig::Type type,
     const std::list<Position> &whitePositions,
     const std::list<Position> &blackPositions,
     const unsigned int numberOfPieces)
@@ -119,9 +95,9 @@ void GameBoard::processHighlights() const {
     const auto& current = isWhiteTurn ? model.getWhitePieceSet() : model.getBlackPieceSet();
     const auto& other = isWhiteTurn ? model.getBlackPieceSet() : model.getWhitePieceSet();
 
-    view.highlightBoardPositions(computeNormalMoves(current, other), Config::HIGHLIGHT_NORMAL);
-    view.highlightBoardPositions(computeAttackMoves(current, other), Config::HIGHLIGHT_ATTACK);
-    view.highlightBoardPositions(computeSpecialMoves(current, other), Config::HIGHLIGHT_SPECIAL);
+    view.highlightBoardPositions(computeNormalMoves(current, other), WindowConfig::HIGHLIGHT_NORMAL);
+    view.highlightBoardPositions(computeAttackMoves(current, other), WindowConfig::HIGHLIGHT_ATTACK);
+    view.highlightBoardPositions(computeSpecialMoves(current, other), WindowConfig::HIGHLIGHT_SPECIAL);
 }
 
 std::list<Position> GameBoard::computeNormalMoves(

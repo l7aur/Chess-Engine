@@ -28,7 +28,7 @@ private:
     void initView();
     void initModel();
     void initPiecesPosition(
-        const PieceType type,
+        const PieceConfig::Type type,
         const std::list<Position>& whitePositions,
         const std::list<Position>& blackPositions,
         const unsigned int numberOfPieces);
