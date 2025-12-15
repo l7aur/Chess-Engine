@@ -33,11 +33,10 @@ private:
         const std::list<Position>& blackPositions,
         const unsigned int numberOfPieces);
     void processUserInput();
-    void processHighlights() const;
+    void computeMoves();
     std::list<Position> computeNormalMoves(
-        const PieceSet& current,
-        const PieceSet& other
-    ) const;
+        const PieceSet &current,
+        const PieceSet &other) const;
     std::list<Position> computeAttackMoves(
         const PieceSet& current,
         const PieceSet& other

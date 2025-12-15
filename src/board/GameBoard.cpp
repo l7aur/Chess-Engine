@@ -70,9 +70,9 @@ void GameBoard::endDrawing() const {
 }
 
 void GameBoard::tick() {
-    processSceneDrawing();
     processUserInput();
-    processHighlights();
+    computeMoves();
+    processSceneDrawing();
 }
 
 void GameBoard::processUserInput() {
@@ -88,16 +88,16 @@ void GameBoard::processUserInput() {
     processUserLeftClickRelease(position, isValidPosition);
 }
 
-void GameBoard::processHighlights() const {
+void GameBoard::computeMoves() {
     if (selectedPiece == nullptr)
         return;
 
     const auto& current = isWhiteTurn ? model.getWhitePieceSet() : model.getBlackPieceSet();
     const auto& other = isWhiteTurn ? model.getBlackPieceSet() : model.getWhitePieceSet();
 
-    view.highlightBoardPositions(computeNormalMoves(current, other), WindowConfig::HIGHLIGHT_NORMAL);
-    view.highlightBoardPositions(computeAttackMoves(current, other), WindowConfig::HIGHLIGHT_ATTACK);
-    view.highlightBoardPositions(computeSpecialMoves(current, other), WindowConfig::HIGHLIGHT_SPECIAL);
+    model.setNormalMoves(computeNormalMoves(current, other));
+    model.setAttackMoves(computeAttackMoves(current, other));
+    model.setSpecialMoves(computeSpecialMoves(current, other));
 }
 
 std::list<Position> GameBoard::computeNormalMoves(
@@ -159,6 +159,10 @@ void GameBoard::processSceneDrawing() {
     view.drawCheckboard();
     view.drawPieceSet(model.getWhitePieceSet());
     view.drawPieceSet(model.getBlackPieceSet());
+
+    view.highlightBoardPositions(model.getNormalMoves(), WindowConfig::HIGHLIGHT_NORMAL);
+    view.highlightBoardPositions(model.getAttackMoves(), WindowConfig::HIGHLIGHT_ATTACK);
+    view.highlightBoardPositions(model.getSpecialMoves(), WindowConfig::HIGHLIGHT_SPECIAL);
 }
 
 bool GameBoard::isValidBoardPosition(const Position& position) const {
@@ -195,6 +199,7 @@ void GameBoard::processUserLeftClickRelease(const Position &position, const bool
         else {
             selectedPiece->resetDrawPosition();
         }
+        model.resetMoves();
         selectedPiece = nullptr;
     }
 }

@@ -25,9 +25,20 @@ public:
     Piece* getSelectedWhitePiece(const Position& position) const;
     Piece* getSelectedBlackPiece(const Position& position) const;
 
+    void setNormalMoves(const std::list<Position>& positions);
+    void setAttackMoves(const std::list<Position>& positions);
+    void setSpecialMoves(const std::list<Position>& positions);
+    const std::list<Position>& getNormalMoves() const;
+    const std::list<Position>& getAttackMoves() const;
+    const std::list<Position>& getSpecialMoves() const;
+    void resetMoves();
+
 private:
     const unsigned int numberOfRows;
     const unsigned int numberOfColumns;
     PieceSet blacks;
     PieceSet whites;
+    std::list<Position> normalMoves{};
+    std::list<Position> attackMoves{};
+    std::list<Position> specialMoves{};
 };

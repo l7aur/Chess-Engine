@@ -32,12 +32,40 @@ void GameState::addBlackPiece(const PieceConfig::Type type, const Position posit
     blacks.addPiece(type, position);
 }
 
-Piece* GameState::getSelectedWhitePiece(const Position& position) const
-{
+Piece* GameState::getSelectedWhitePiece(const Position& position) const {
     return whites.getPieceByPosition(position);
 }
 
-Piece* GameState::getSelectedBlackPiece(const Position& position) const
-{
+Piece* GameState::getSelectedBlackPiece(const Position& position) const {
     return blacks.getPieceByPosition(position);
+}
+
+void GameState::setNormalMoves(const std::list<Position> &positions) {
+    normalMoves = positions;
+}
+
+void GameState::setAttackMoves(const std::list<Position> &positions) {
+    attackMoves = positions;
+}
+
+void GameState::setSpecialMoves(const std::list<Position> &positions) {
+    specialMoves = positions;
+}
+
+const std::list<Position> &GameState::getNormalMoves() const {
+    return normalMoves;
+}
+
+const std::list<Position> &GameState::getAttackMoves() const {
+    return attackMoves;
+}
+
+const std::list<Position> &GameState::getSpecialMoves() const {
+    return specialMoves;
+}
+
+void GameState::resetMoves() {
+    normalMoves.clear();
+    attackMoves.clear();
+    specialMoves.clear();
 }
