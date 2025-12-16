@@ -72,6 +72,12 @@ void GameBoard::endDrawing() const {
 void GameBoard::tick() {
     processUserInput();
     computeMoves();
+    /**
+     * TODO: evaluate if any king is in check
+     */
+    /**
+     * TODO: evaluate if the game has ended (checkmate)
+     */
     processSceneDrawing();
 }
 
@@ -166,6 +172,10 @@ void GameBoard::processSceneDrawing() {
 }
 
 bool GameBoard::isValidBoardPosition(const Position& position) const {
+    /**
+     * TODO: a position is valid iff it is attack, normal or special
+     * and does not generate a check on current piece set king
+     */
     Piece* pieceAtPosition = model.getSelectedWhitePiece(position);
     if (pieceAtPosition != nullptr)
         return false;
